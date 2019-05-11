@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.zip.InflaterOutputStream;
 
 public final class FileIO
 {
@@ -38,5 +39,14 @@ public final class FileIO
         }
 
         return result;
+    }
+
+    public static boolean doesExist(Context context, String fileName)
+    {
+        File f = new File("/data/data/" + context.getPackageName() + "/" + fileName);
+        if (f.isFile())
+            return true;
+
+        return false;
     }
 }

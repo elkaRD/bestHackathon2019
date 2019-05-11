@@ -2,16 +2,18 @@ package com.nieelitarni.besthackathon2019;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TasksFragment extends Fragment
+public class TasksFragment extends Fragment implements View.OnClickListener
 {
     private View view;
     private ArrayList<View> displayedTasks = new ArrayList<>();
@@ -51,6 +53,10 @@ public class TasksFragment extends Fragment
             TextView messages = child.findViewById(R.id.textViewMessages);
             messages.setText(Integer.toString(task.getMessages().size()));
 
+            ImageButton assignMe = child.findViewById(R.id.imageButtonAdd);
+            assignMe.setTag(R.string.tag_task_fragment_add, task);
+            assignMe.setOnClickListener(this);
+
             tasksViewGroup.addView(child);
             displayedTasks.add(child);
 
@@ -59,5 +65,15 @@ public class TasksFragment extends Fragment
             anim.setFillAfter(true);
             child.startAnimation(anim);
         }
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        Task task = (Task) v.getTag(R.string.tag_task_fragment_add);
+        AppManager.getInstance().assignToTask(task);
+        updateCommitsList();
+        Snackbar.make(view, "Assigned to task", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
     }
 }

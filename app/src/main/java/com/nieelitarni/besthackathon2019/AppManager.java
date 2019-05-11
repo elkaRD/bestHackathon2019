@@ -148,7 +148,7 @@ public class AppManager {
         }
         return null;
     }
-    public void asignToTask(Task t){
+    public void assignToTask(Task t){
 
     }
     //User methods
