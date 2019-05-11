@@ -35,9 +35,14 @@ public class Message {
     public void setTime(Date time) {
         this.time = time;
     }
+
     //
-    public String getHeader(){
-        String header = author.getName();
+    public String getHeader() {
+        String header;
+        if (author.equals(AppManager.getInstance().getMe()))
+            header = "Me";
+        else
+            header = author.getName();
         header += DateHandler.getTimeAgo(time);
         return header;
     }

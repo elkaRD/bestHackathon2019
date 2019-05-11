@@ -18,8 +18,6 @@ public class Messenger {
     //
     public void addMessage(String msg) {
         messages.add(new Message(msg));
-        Gson json = new Gson();
-        String toSend = json.toJson(AppManager.getInstance());
-        Firebase.write(AppManager.getInstance().getRepoName(), toSend);
+        AppManager.getInstance().sendToDatabase();
     }
 }

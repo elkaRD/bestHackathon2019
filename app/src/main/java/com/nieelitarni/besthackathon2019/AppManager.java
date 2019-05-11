@@ -26,6 +26,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.TimeZone;
@@ -63,6 +66,10 @@ public class AppManager {
         getTaskById("0").addUser(getUserByName("paolo21d"));
         getTaskById("1").addUser(getUserByName("paolo21d"));
         getTaskById("1").addUser(getUserByName("Quazan"));
+
+        addMessageToTask(getTaskById("0"), "mes1");
+        addMessageToTask(getTaskById("0"), "mes2");
+        addMessageToTask(getTaskById("0"), "mes3");
 
         //saveToFile();
         //Firebase.read(repoName);
@@ -117,8 +124,8 @@ public class AppManager {
 
     private void setNewCommitsList(ArrayList<Commit> newCommitsList) {
         commits = newCommitsList;
+        sendToDatabase();
     }
-
 
     public void saveToFile() {
         String path = new File("applicationData.json").getAbsolutePath();
@@ -142,6 +149,12 @@ public class AppManager {
         this.me = tmp.me;
     }
 
+    public void sendToDatabase() {
+        Gson json = new Gson();
+        String toSend = json.toJson(instance);
+        Firebase.write(AppManager.getInstance().getRepoName(), toSend);
+    }
+
     //Task methods
     public boolean addTask(String id, String title, String description) {
         for (Task t : tasks) {
@@ -150,6 +163,7 @@ public class AppManager {
         }
         Task task = new Task(id, title, description);
         tasks.add(task);
+        sendToDatabase();
         return true;
     }
 
@@ -176,6 +190,7 @@ public class AppManager {
             }
         }
         t.addUser(me);
+        sendToDatabase();
     }
 
     //User methods
@@ -186,6 +201,8 @@ public class AppManager {
         }
         User user = new User(id, name, role);
         users.add(user);
+        Collections.sort(users, new SortUsers());
+        sendToDatabase();
         return true;
     }
 
@@ -208,10 +225,16 @@ public class AppManager {
     public void addMeUser(String name, Role role) {
         me = new User(users.size(), name, role);
         users.add(me);
+        Collections.sort(users, new SortUsers());
+        sendToDatabase();
     }
 
     public User getMe() {
         return me;
+    }
+
+    public boolean isMe(User u){
+        return u.equals(me);
     }
 
     //GitHub methods
@@ -325,4 +348,12 @@ public class AppManager {
         t.addMessage(msg);
     }
 
+}
+
+class SortUsers implements Comparator<User>{
+
+    @Override
+    public int compare(User o1, User o2) {
+        return o1.getScore() - o2.getScore();
+    }
 }
