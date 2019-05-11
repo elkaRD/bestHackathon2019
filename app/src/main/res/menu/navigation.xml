@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_progress"
+        android:icon="@drawable/ic_progress"
+        android:title="@string/title_progress" />
+
+    <item
+        android:id="@+id/navigation_tasks"
+        android:icon="@drawable/ic_list"
+        android:title="@string/title_tasks_list" />
+
+    <item
+        android:id="@+id/navigation_users"
+        android:icon="@drawable/ic_users"
+        android:title="@string/title_users" />
+
+    <item
+        android:id="@+id/navigation_commits"
+        android:icon="@drawable/ic_commits"
+        android:title="@string/title_commits" />
+
+</menu>
