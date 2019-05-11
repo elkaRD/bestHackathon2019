@@ -28,6 +28,9 @@ public class Task {
         status = TaskStatus.Created;
         createDate = Calendar.getInstance().getTime();
         score = 1;
+        messenger = new Messenger();
+        users = new ArrayList<>();
+        commits = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -78,8 +81,19 @@ public class Task {
         this.score = score;
     }
 
-    //////////////////
-    public void addUser(User user) {
+    public ArrayList<Commit> getCommits() {
+        return commits;
+    }
 
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+    //////////////////
+    public ArrayList<Message> getMessages(){
+        return messenger.getMessages();
+    }
+
+    public void addUser(User user) {
+        users.add(user);
     }
 }
