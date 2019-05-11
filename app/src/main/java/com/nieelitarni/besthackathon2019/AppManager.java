@@ -25,8 +25,12 @@ import java.util.Scanner;
 public class AppManager {
     private transient Context context;
 
-    public void setContext(Context context) {
+    public boolean setContext(Context context) {
         this.context = context;
+        if (!FileIO.doesExist(context, "myUser.bin")) { //pierwsze uruchomienie
+            return false;
+        }
+        return true;
     }
 
     //singleton implementation start
@@ -39,8 +43,11 @@ public class AppManager {
         repoOwner = "Quazan";
         repoName = "test";
 
+
         tasks.add(new Task(tasks.size(), "Task1", "do zrobienia"));
         tasks.add(new Task(tasks.size(), "Task2", "do zrobienia duuuuuuuzo"));
+        me = new User(users.size(), "localUser", Role.Backend);
+        users.add(me);
         users.add(new User(users.size(), "paolo21d", Role.Backend));
         users.add(new User(users.size(), "robert", Role.Fronted));
         users.add(new User(users.size(), "Quazan", Role.Tester));
@@ -49,9 +56,7 @@ public class AppManager {
         getTaskById(1).addUser(getUserByName("Quazan"));
 
         //saveToFile();
-        if(FileIO.doesExist(context, "myUser.bin")){ //
 
-        }
     }
 
     public static AppManager getInstance() {
@@ -89,16 +94,6 @@ public class AppManager {
         readFromFile();
         System.out.println("Test");
 
-        /*System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-        try {
-            sendRequest();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("cokolwiek", "cokolwiek");
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        */
     }
 
     public void saveToFile() {
@@ -120,6 +115,7 @@ public class AppManager {
         this.commits = tmp.commits;
         this.repoName = tmp.repoName;
         this.repoOwner = tmp.repoOwner;
+        this.me = tmp.me;
     }
 
     //Task methods
@@ -148,9 +144,11 @@ public class AppManager {
         }
         return null;
     }
-    public void assignToTask(Task t){
 
+    public void assignToTask(Task t) {
+        t.addUser(me);
     }
+
     //User methods
     public boolean addUser(Integer id, String name, Role role) {
         for (User u : users) {
@@ -178,6 +176,11 @@ public class AppManager {
         return null;
     }
 
+    public void addMeUser(String name, Role role){
+        me = new User(users.size(), name, role);
+        users.add(me);
+    }
+    //GitHub methods
     private void sendRequest() {
         if (context == null) {
             System.out.println("context jest nullem");
