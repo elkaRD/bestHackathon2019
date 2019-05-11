@@ -7,7 +7,7 @@ public class Message {
     private String content;
     private Date time;
 
-    public Message(String c){
+    public Message(String c) {
         author = AppManager.getInstance().getMe();
         content = c;
     }
@@ -34,5 +34,11 @@ public class Message {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+    //
+    public String getHeader(){
+        String header = author.getName();
+        header += DateHandler.getTimeAgo(time);
+        return header;
     }
 }

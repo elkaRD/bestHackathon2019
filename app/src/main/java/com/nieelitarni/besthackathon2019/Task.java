@@ -32,7 +32,8 @@ public class Task {
         users = new ArrayList<>();
         commits = new ArrayList<>();
     }
-    public Task(Task t){
+
+    public Task(Task t) {
         this.id = t.id;
         this.title = t.title;
         this.description = t.description;
@@ -99,8 +100,9 @@ public class Task {
     public ArrayList<User> getUsers() {
         return users;
     }
+
     //////////////////
-    public ArrayList<Message> getMessages(){
+    public ArrayList<Message> getMessages() {
         return messenger.getMessages();
     }
 
@@ -108,7 +110,7 @@ public class Task {
         users.add(user);
     }
 
-    public void addMessage(String msg){
+    public void addMessage(String msg) {
         messenger.addMessage(msg);
     }
 

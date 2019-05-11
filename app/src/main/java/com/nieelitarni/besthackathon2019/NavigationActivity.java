@@ -43,8 +43,7 @@ public class NavigationActivity extends AppCompatActivity {
         }
     };
 
-    private void replaceFragment(Fragment fragment)
-    {
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameContainer, fragment);
@@ -74,18 +73,15 @@ public class NavigationActivity extends AppCompatActivity {
 //        Firebase.read("my_debug_key");
     }
 
-    private void launchInitActivity()
-    {
+    private void launchInitActivity() {
 
     }
 
-    public static NavigationActivity getCurrentInstance()
-    {
+    public static NavigationActivity getCurrentInstance() {
         return currentInstance;
     }
 
-    public void dataChanged()
-    {
+    public void dataChanged() {
 
     }
 }

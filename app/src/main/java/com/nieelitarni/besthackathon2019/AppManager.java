@@ -65,7 +65,7 @@ public class AppManager {
         getTaskById("1").addUser(getUserByName("Quazan"));
 
         //saveToFile();
-        Firebase.read(repoName);
+        //Firebase.read(repoName);
     }
 
     public static AppManager getInstance() {
@@ -83,6 +83,21 @@ public class AppManager {
     private String repoOwner;
     private String repoName;
     private User me;
+
+    public void execute() {
+        saveToFile();
+        tasks = null;
+        users = null;
+        readFromFile();
+        System.out.println("Test");
+
+        try {
+            sendRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -104,21 +119,6 @@ public class AppManager {
         commits = newCommitsList;
     }
 
-
-    public void execute() {
-        saveToFile();
-        tasks = null;
-        users = null;
-        readFromFile();
-        System.out.println("Test");
-
-        try {
-            sendRequest();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void saveToFile() {
         String path = new File("applicationData.json").getAbsolutePath();
@@ -324,4 +324,5 @@ public class AppManager {
     public void addMessageToTask(Task t, String msg) {
         t.addMessage(msg);
     }
+
 }
