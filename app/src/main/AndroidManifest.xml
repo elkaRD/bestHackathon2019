@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TaskInfo"></activity>
-        <activity android:name=".TaskCommits" />
-        <activity android:name=".TaskMessages" />
-        <activity android:name=".TaskUsers" />
+        <activity android:name=".TaskInfoActivity"></activity>
+        <activity android:name=".TaskCommitsActivity" />
+        <activity android:name=".TaskMessagesActivity" />
+        <activity android:name=".TaskUsersActivity" />
         <activity
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation">

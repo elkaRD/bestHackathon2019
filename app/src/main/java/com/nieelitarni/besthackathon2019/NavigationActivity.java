@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class NavigationActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private static NavigationActivity currentInstance = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,6 +57,7 @@ public class NavigationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        currentInstance = this;
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -73,6 +75,16 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     private void launchInitActivity()
+    {
+
+    }
+
+    public static NavigationActivity getCurrentInstance()
+    {
+        return currentInstance;
+    }
+
+    public void dataChanged()
     {
 
     }

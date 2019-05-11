@@ -128,28 +128,28 @@ public class TasksFragment extends Fragment implements View.OnClickListener
 
     private void clickedInfo(Task task)
     {
-        Intent myIntent = new Intent(getActivity(), TaskInfo.class);
+        Intent myIntent = new Intent(getActivity(), TaskInfoActivity.class);
         myIntent.putExtra(INTENT_PARAM, task.getId());
         startActivityForResult(myIntent, REQUEST_INFO);
     }
 
     private void clickedUsers(Task task)
     {
-        Intent myIntent = new Intent(getActivity(), TaskUsers.class);
+        Intent myIntent = new Intent(getActivity(), TaskUsersActivity.class);
         myIntent.putExtra(INTENT_PARAM, task.getId());
         startActivityForResult(myIntent, REQUEST_USERS);
     }
 
     private void clickedMessages(Task task)
     {
-        Intent myIntent = new Intent(getActivity(), TaskMessages.class);
+        Intent myIntent = new Intent(getActivity(), TaskMessagesActivity.class);
         myIntent.putExtra(INTENT_PARAM, task.getId());
         startActivityForResult(myIntent, REQUEST_MESSAGES);
     }
 
     private void clickedCommits(Task task)
     {
-        Intent myIntent = new Intent(getActivity(), TaskCommits.class);
+        Intent myIntent = new Intent(getActivity(), TaskCommitsActivity.class);
         myIntent.putExtra(INTENT_PARAM, task.getId());
         startActivityForResult(myIntent, REQUEST_COMMITS);
     }
