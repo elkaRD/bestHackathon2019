@@ -142,7 +142,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener
 
     private void clickedMessages(Task task)
     {
-        Intent myIntent = new Intent(getActivity(), TaskMessagesActivity.class);
+        Intent myIntent = new Intent(getActivity(), MessagesActivity.class);
         myIntent.putExtra(INTENT_PARAM, task.getId());
         startActivityForResult(myIntent, REQUEST_MESSAGES);
     }

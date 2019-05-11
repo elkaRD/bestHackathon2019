@@ -11,4 +11,7 @@
 
     <string name="tag_task_fragment_add">taskFragmentAdd</string>
     <string name="tag_task_fragment_type">taskFragmentButtonType</string>
+    <string name="title_activity_debug__remove_me">Debug_RemoveMe</string>
+    <string name="title_activity_messages">MessagesActivity</string>
+    <string name="title_activity_init_user">InitUserActivity</string>
 </resources>
