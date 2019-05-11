@@ -44,6 +44,7 @@ public class AppManager {
     //singleton implementation start
     private static transient AppManager instance = null;
 
+
     private AppManager() {
         tasks = new ArrayList<>();
         users = new ArrayList<>();
@@ -64,7 +65,7 @@ public class AppManager {
         getTaskById("1").addUser(getUserByName("Quazan"));
 
         //saveToFile();
-
+        Firebase.read(repoName);
     }
 
     public static AppManager getInstance() {
@@ -87,6 +88,10 @@ public class AppManager {
         return tasks;
     }
 
+    public String getRepoName() {
+        return repoName;
+    }
+
     public ArrayList<User> getUsers() {
         return users;
     }
@@ -95,7 +100,7 @@ public class AppManager {
         return commits;
     }
 
-    private void setNewCommitsList(ArrayList<Commit> newCommitsList){
+    private void setNewCommitsList(ArrayList<Commit> newCommitsList) {
         commits = newCommitsList;
     }
 
@@ -165,6 +170,11 @@ public class AppManager {
     }
 
     public void assignToTask(Task t) {
+        for (User u : t.getUsers()) {
+            if (u.equals(me)) { //juz jestem przypisany do projektu
+                return;
+            }
+        }
         t.addUser(me);
     }
 
@@ -195,9 +205,13 @@ public class AppManager {
         return null;
     }
 
-    public void addMeUser(String name, Role role){
+    public void addMeUser(String name, Role role) {
         me = new User(users.size(), name, role);
         users.add(me);
+    }
+
+    public User getMe() {
+        return me;
     }
 
     //GitHub methods
@@ -208,14 +222,14 @@ public class AppManager {
         }
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="https://api.github.com/repos/Quazan/test/commits";
+        String url = "https://api.github.com/repos/Quazan/test/commits";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        response = "{\"commits_list\":"+response+"}";
+                        response = "{\"commits_list\":" + response + "}";
                         JSONObject js = null;
                         JSONArray jsonArray = null;
                         try {
@@ -224,7 +238,7 @@ public class AppManager {
 
                             ArrayList<Commit> newCommitsList = new ArrayList<>();
 
-                            for(int i = 0; i < jsonArray.length(); i++){
+                            for (int i = 0; i < jsonArray.length(); i++) {
                                 String hash = null;
                                 Task task = null;
                                 String author = null;
@@ -239,15 +253,15 @@ public class AppManager {
                                 String dt = jso.getString("date");
 
                                 dt = dt.replace("T", " ");
-                                dt = dt.replace("Z"," GMT+00:00" );
+                                dt = dt.replace("Z", " GMT+00:00");
                                 @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
                                 formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
                                 Date time = formatter.parse(dt);
 
                                 String[] splited = message.split(" ");
 
-                                for(String str: splited){
-                                    if(str.startsWith("#T") || str.startsWith("#t")){
+                                for (String str : splited) {
+                                    if (str.startsWith("#T") || str.startsWith("#t")) {
                                         String s = str.substring(2);
                                         task = getTaskById(s);
                                         Commit commit = new Commit(hash, author, time, message, task);
@@ -271,5 +285,43 @@ public class AppManager {
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    public void onDataChange(String value) {
+        Gson json = new Gson();
+        AppManager tmp = json.fromJson(value, AppManager.class);
+        /*this.users = tmp.users;
+        this.tasks = tmp.tasks;
+        this.commits = tmp.commits;
+        this.repoName = tmp.repoName;
+        this.repoOwner = tmp.repoOwner;*/
+
+        if (!this.users.equals(tmp.users)) { //rozna lista uzytkownikow
+            /*if(this.users.size()<tmp.users.size()){ //w bazie wiecej uzytkownikow
+                for(Integer i=this.users.size(); i<tmp.users.size(); ++i){
+                    users.add(tmp.users.get(i));
+                }
+            }*/
+            users = tmp.users;
+            NavigationActivity.getCurrentInstance().dataChanged();
+        }
+        if (!this.tasks.equals(tmp.tasks)) { //rozna lista taskow
+            /*if(this.tasks.size()<tmp.users.size()){
+                for(Integer i=this.tasks.size(); i<tmp.tasks.size(); ++i){
+                    tasks.add(tmp.tasks.get(i));
+                }
+            }*/
+            tasks = tmp.tasks;
+            NavigationActivity.getCurrentInstance().dataChanged();
+        }
+    }
+
+    //Message
+    public ArrayList<Message> getTaskMessages(Task t) {
+        return t.getMessages();
+    }
+
+    public void addMessageToTask(Task t, String msg) {
+        t.addMessage(msg);
     }
 }

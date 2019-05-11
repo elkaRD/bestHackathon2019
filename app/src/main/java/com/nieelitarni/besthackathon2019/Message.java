@@ -7,6 +7,11 @@ public class Message {
     private String content;
     private Date time;
 
+    public Message(String c){
+        author = AppManager.getInstance().getMe();
+        content = c;
+    }
+
     public User getAuthor() {
         return author;
     }

@@ -32,7 +32,7 @@ public final class Firebase
             {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d(TAG, "Value is: " + value);
-
+                AppManager.getInstance().onDataChange(value);
             }
 
             @Override

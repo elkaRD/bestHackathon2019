@@ -32,6 +32,17 @@ public class Task {
         users = new ArrayList<>();
         commits = new ArrayList<>();
     }
+    public Task(Task t){
+        this.id = t.id;
+        this.title = t.title;
+        this.description = t.description;
+        this.status = t.status;
+        this.createDate = t.createDate;
+        this.score = t.score;
+        this.messenger = t.messenger;
+        this.users = t.users;
+        this.commits = t.commits;
+    }
 
     public String getId() {
         return id;
@@ -96,4 +107,9 @@ public class Task {
     public void addUser(User user) {
         users.add(user);
     }
+
+    public void addMessage(String msg){
+        messenger.addMessage(msg);
+    }
+
 }
