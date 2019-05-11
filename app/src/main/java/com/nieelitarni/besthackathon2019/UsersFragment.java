@@ -34,22 +34,22 @@ public class UsersFragment extends Fragment
 
         displayedUsers.clear();
 
-        ViewGroup tasksViewGroup = (ViewGroup) view.findViewById(R.id.tasksLayout);
+        ViewGroup tasksViewGroup = (ViewGroup) view.findViewById(R.id.usersLayout);
 
         ArrayList<User> users = AppManager.getInstance().getUsers();
 
         for (User user : users)
         {
-            View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_commit, null);
+            View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_user, null);
 
-            TextView name = child.findViewById(R.id.textViewName);
+            TextView name = child.findViewById(R.id.textViewUserName);
             name.setText(user.getName());
 
-            TextView done = child.findViewById(R.id.textViewUsers);
-            done.setText(user.getDoneTasks().size());
+            TextView done = child.findViewById(R.id.textViewUserDone);
+            done.setText(Integer.toString(user.getDoneTasks().size()));
 
-            TextView current = child.findViewById(R.id.textViewDate);
-            current.setText(user.getCurrentTasks().size());
+            TextView current = child.findViewById(R.id.textViewUserCurrent);
+            current.setText(Integer.toString(user.getCurrentTasks().size()));
 
             tasksViewGroup.addView(child);
             displayedUsers.add(child);

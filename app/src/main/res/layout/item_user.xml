@@ -16,7 +16,7 @@
             android:src="@drawable/ic_user_red" />
 
         <TextView
-            android:id="@+id/textViewUser"
+            android:id="@+id/textViewUserName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
@@ -24,14 +24,14 @@
             android:text="User's name" />
 
         <ImageView
-            android:id="@+id/imageViewDone"
+            android:id="@+id/imageViewUserDone"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_done" />
 
         <TextView
-            android:id="@+id/textViewDone"
+            android:id="@+id/textViewUserDone"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -39,14 +39,14 @@
             android:text="20" />
 
         <ImageView
-            android:id="@+id/imageViewCurrent"
+            android:id="@+id/imageViewUserCurrent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_list" />
 
         <TextView
-            android:id="@+id/textViewCurrent"
+            android:id="@+id/textViewUserCurrent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

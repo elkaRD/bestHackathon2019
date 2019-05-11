@@ -46,10 +46,10 @@ public class TasksFragment extends Fragment
             name.setText(task.getTitle());
 
             TextView users = child.findViewById(R.id.textViewAssignedUsers);
-            users.setText(task.getUsers().size());
+            users.setText(Integer.toString(task.getUsers().size()));
 
             TextView messages = child.findViewById(R.id.textViewMessages);
-            messages.setText(task.getMessages().size());
+            messages.setText(Integer.toString(task.getMessages().size()));
 
             tasksViewGroup.addView(child);
             displayedTasks.add(child);
