@@ -5,7 +5,17 @@ import java.util.ArrayList;
 public class AppManager {
     //singleton implementation start
     private AppManager() {
+        tasks = new ArrayList<>();
+        users= new ArrayList<>();
+        commits = new ArrayList<>();
+        repoOwner = "Quazan";
+        repoName = "test";
 
+        tasks.add(new Task(tasks.size(), "Task1", "do zrobienia"));
+        tasks.add(new Task(tasks.size(), "Task2", "do zrobienia duuuuuuuzo"));
+        users.add(new User(users.size(), "paolo21d", Role.Backend ));
+        users.add(new User(users.size(), "robert", Role.Fronted ));
+        users.add(new User(users.size(), "Quazan", Role.Tester ));
     }
 
     private static AppManager instance = null;

@@ -6,6 +6,13 @@ public class User {
     private Integer score;
     private Role role;
 
+    public User(Integer id, String name, Role role) {
+        this.id = id;
+        this.name = name;
+        this.score = 0;
+        this.role = role;
+    }
+
     public Integer getId() {
         return id;
     }
