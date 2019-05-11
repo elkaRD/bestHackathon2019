@@ -67,10 +67,6 @@ public class AppManager {
         getTaskById("1").addUser(getUserByName("paolo21d"));
         getTaskById("1").addUser(getUserByName("Quazan"));
 
-        addMessageToTask(getTaskById("0"), "mes1");
-        addMessageToTask(getTaskById("0"), "mes2");
-        addMessageToTask(getTaskById("0"), "mes3");
-
         //saveToFile();
         //Firebase.read(repoName);
     }
@@ -104,6 +100,9 @@ public class AppManager {
             e.printStackTrace();
         }
 
+        addMessageToTask(getTaskById("0"), "mes1");
+        addMessageToTask(getTaskById("0"), "mes2");
+        addMessageToTask(getTaskById("0"), "mes3");
     }
 
     public ArrayList<Task> getTasks() {
