@@ -67,9 +67,9 @@ public class AppManager {
         getTaskById("1").addUser(getUserByName("paolo21d"));
         getTaskById("1").addUser(getUserByName("Quazan"));
 
-//        addMessageToTask(getTaskById("0"), "mes1");
-//        addMessageToTask(getTaskById("0"), "mes2");
-//        addMessageToTask(getTaskById("0"), "mes3");
+        addMessageToTask(getTaskById("0"), "mes1");
+        addMessageToTask(getTaskById("0"), "mes2");
+        addMessageToTask(getTaskById("0"), "mes3");
 
         //saveToFile();
         //Firebase.read(repoName);
@@ -156,12 +156,12 @@ public class AppManager {
     }
 
     //Task methods
-    public boolean addTask(String id, String title, String description) {
+    public boolean addTask(String title, String description) {
         for (Task t : tasks) {
             if (t.getTitle().equals(title))
                 return false;
         }
-        Task task = new Task(id, title, description);
+        Task task = new Task(Integer.toString(tasks.size()), title, description);
         tasks.add(task);
         sendToDatabase();
         return true;
@@ -194,12 +194,12 @@ public class AppManager {
     }
 
     //User methods
-    public boolean addUser(Integer id, String name, Role role) {
+    public boolean addUser(String name, Role role) {
         for (User u : users) {
             if (u.getName().equals(name))
                 return false;
         }
-        User user = new User(id, name, role);
+        User user = new User(users.size(), name, role);
         users.add(user);
         Collections.sort(users, new SortUsers());
         sendToDatabase();
@@ -236,6 +236,7 @@ public class AppManager {
     public boolean isMe(User u){
         return u.equals(me);
     }
+
 
     //GitHub methods
     private void sendRequest() {
