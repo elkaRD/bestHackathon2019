@@ -35,13 +35,33 @@ public class CommitsFragment extends Fragment
 
         displayedCommits.clear();
 
-        ViewGroup tasksViewGroup = (ViewGroup) view.findViewById(R.id.commitsLayout);
+        ViewGroup commitsViewGroup = (ViewGroup) view.findViewById(R.id.commitsLayout);
 
         ArrayList<Commit> commits = AppManager.getInstance().getCommits();
 
         for (Commit commit : commits)
         {
+            View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_commit, null);
 
+            TextView name = child.findViewById(R.id.textViewDetails);
+            name.setText(commit.getContent());
+
+            TextView hash = child.findViewById(R.id.textViewHash);
+            hash.setText(commit.getHash());
+
+            TextView timeAgo = child.findViewById(R.id.textViewDate);
+            timeAgo.setText(DateHandler.getTimeAgo(commit.getTime()));
+
+            TextView author = child.findViewById(R.id.textViewAuthor);
+            author.setText(commit.getAuthor());
+
+            commitsViewGroup.addView(child);
+            displayedCommits.add(child);
+
+            ScaleAnimation anim = new ScaleAnimation(0,1,0,1);
+            anim.setDuration(200);
+            anim.setFillAfter(true);
+            child.startAnimation(anim);
         }
     }
 }
