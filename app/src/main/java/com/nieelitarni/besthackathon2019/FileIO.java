@@ -7,13 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileIO
+public final class FileIO
 {
-    public static void save(Context context, String fileName, String json)
+    public static void save(Context context, String fileName, String data)
     {
         try {
-            FileWriter file = new FileWriter("/data/" + context.getPackageName() + "/" + fileName);
-            file.write(json);
+            FileWriter file = new FileWriter("/data/data/" + context.getPackageName() + "/" + fileName);
+            file.write(data);
             file.flush();
             file.close();
         } catch (IOException e) {
@@ -21,10 +21,11 @@ public class FileIO
         }
     }
 
-    public static String read(Context context, String fileName) {
+    public static String read(Context context, String fileName)
+    {
         String result = null;
         try {
-            File f = new File("/data/" + context.getPackageName() + "/" + fileName);
+            File f = new File("/data/data/" + context.getPackageName() + "/" + fileName);
             FileInputStream is = new FileInputStream(f);
             int size = is.available();
             byte[] buffer = new byte[size];

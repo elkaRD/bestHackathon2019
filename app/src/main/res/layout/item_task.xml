@@ -17,14 +17,14 @@ android:layout_height="match_parent">
             android:text="Task's name" />
 
         <ImageView
-            android:id="@+id/imageViewUsers"
+            android:id="@+id/imageViewAssignedUsers"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/ic_users" />
 
         <TextView
-            android:id="@+id/textViewUsers"
+            android:id="@+id/textViewAssignedUsers"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -22,6 +22,8 @@ public class TasksFragment extends Fragment
     {
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
 
+        updateCommitsList();
+
         return view;
     }
 
@@ -32,33 +34,30 @@ public class TasksFragment extends Fragment
 
         displayedTasks.clear();
 
-//        ViewGroup tasksViewGroup = (ViewGroup) view.findViewById(R.id.tasksLayout);
-//
-//        ArrayList<Task> tasks = AppManager.getInstance().getTasks();
+        ViewGroup tasksViewGroup = (ViewGroup) view.findViewById(R.id.tasksLayout);
 
-//        for (Task task : tasks)
-//        {
-//            View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_commit, null);
-//
-//            TextView name = child.findViewById(R.id.textViewName);
-//            name.setText(task.getTitle());
-//
-//            TextView users = child.findViewById(R.id.textViewUsers);
-//            users.setText(task.getUsers().size());
-//
-//            TextView timeAgo = child.findViewById(R.id.textViewDate);
-//            timeAgo.setText(DateHandler.getTimeAgo(commit.getTime()));
-//
-//            TextView author = child.findViewById(R.id.textViewAuthor);
-//            author.setText(commit.getAuthor());
-//
-//            tasksViewGroup.addView(child);
-//            displayedtasks.add(child);
-//
-//            ScaleAnimation anim = new ScaleAnimation(0,1,0,1);
-//            anim.setDuration(200);
-//            anim.setFillAfter(true);
-//            child.startAnimation(anim);
-//        }
+        ArrayList<Task> tasks = AppManager.getInstance().getTasks();
+
+        for (Task task : tasks)
+        {
+            View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_task, null);
+
+            TextView name = child.findViewById(R.id.textViewName);
+            name.setText(task.getTitle());
+
+            TextView users = child.findViewById(R.id.textViewAssignedUsers);
+            users.setText(task.getUsers().size());
+
+            TextView messages = child.findViewById(R.id.textViewMessages);
+            messages.setText(task.getMessages().size());
+
+            tasksViewGroup.addView(child);
+            displayedTasks.add(child);
+
+            ScaleAnimation anim = new ScaleAnimation(0,1,0,1);
+            anim.setDuration(200);
+            anim.setFillAfter(true);
+            child.startAnimation(anim);
+        }
     }
 }

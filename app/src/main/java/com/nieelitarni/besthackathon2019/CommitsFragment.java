@@ -24,6 +24,8 @@ public class CommitsFragment extends Fragment
 
         view = inflater.inflate(R.layout.fragment_commits, container, false);
 
+        updateCommitsList();
+
         return view;
     }
 
