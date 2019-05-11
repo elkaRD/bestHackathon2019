@@ -49,6 +49,9 @@ public class AppManager {
         getTaskById(1).addUser(getUserByName("Quazan"));
 
         //saveToFile();
+        if(FileIO.doesExist(context, "myUser.bin")){ //
+
+        }
     }
 
     public static AppManager getInstance() {
@@ -65,6 +68,7 @@ public class AppManager {
 
     private String repoOwner;
     private String repoName;
+    private User me;
 
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -103,32 +107,11 @@ public class AppManager {
         String response = json.toJson(instance);
 
         FileIO.save(context, "appData.json", response);
-        /*try {
-            FileWriter myWriter = new FileWriter(path);
-            myWriter.write(response);
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void readFromFile() {
         String path = new File("applicationData.json").getAbsolutePath();
-        String data = "";
-        /*try {
-            File myObj = new File(path);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                data += myReader.nextLine();
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-
-        }*/
-        data = FileIO.read(context, "appData.json");
+        String data = FileIO.read(context, "appData.json");
 
         Gson json = new Gson();
         AppManager tmp = json.fromJson(data, AppManager.class);
@@ -165,7 +148,9 @@ public class AppManager {
         }
         return null;
     }
+    public void asignToTask(Task t){
 
+    }
     //User methods
     public boolean addUser(Integer id, String name, Role role) {
         for (User u : users) {
