@@ -23,12 +23,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AppManager {
-    private Context context;
+    private transient Context context;
 
-    public void setContext(Context context){
+    public void setContext(Context context) {
         this.context = context;
     }
+
     //singleton implementation start
+    private static AppManager instance = null;
+
     private AppManager() {
         tasks = new ArrayList<>();
         users = new ArrayList<>();
@@ -45,10 +48,8 @@ public class AppManager {
         getTaskById(1).addUser(getUserByName("paolo21d"));
         getTaskById(1).addUser(getUserByName("Quazan"));
 
-        saveToFile();
+        //saveToFile();
     }
-
-    private static AppManager instance = null;
 
     public static AppManager getInstance() {
         if (instance == null) {
@@ -78,7 +79,11 @@ public class AppManager {
     }
 
     public void execute() {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        saveToFile();
+        tasks = null;
+        users = null;
+        readFromFile();
+        /*System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         try {
             sendRequest();
@@ -87,27 +92,29 @@ public class AppManager {
         }
         Log.d("cokolwiek", "cokolwiek");
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        */
     }
 
     public void saveToFile() {
         String path = new File("applicationData.json").getAbsolutePath();
         Gson json = new Gson();
-        String response = json.toJson(this);
+        String response = json.toJson(instance);
 
-        try {
+        FileIO.save(context, "appData.json", response);
+        /*try {
             FileWriter myWriter = new FileWriter(path);
             myWriter.write(response);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
-        }  catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void readFromFile() {
         String path = new File("applicationData.json").getAbsolutePath();
         String data = "";
-        try {
+        /*try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
@@ -118,7 +125,9 @@ public class AppManager {
             System.out.println("An error occurred.");
             e.printStackTrace();
 
-        }
+        }*/
+        data = FileIO.read(context, "applicationData.json");
+        data = FileIO.read(context, "applicationData.json");
 
         Gson json = new Gson();
         AppManager tmp = json.fromJson(data, AppManager.class);
@@ -181,15 +190,14 @@ public class AppManager {
         return null;
     }
 
-    private void sendRequest()
-    {
-        if(context == null){
+    private void sendRequest() {
+        if (context == null) {
             System.out.println("context jest nullem");
             return;
         }
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="https://daftpython.herokuapp.com/counter";
+        String url = "https://daftpython.herokuapp.com/counter";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
