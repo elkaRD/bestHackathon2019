@@ -13,6 +13,14 @@ public class Task {
     private String title;
     private String description;
 
+    private TaskStatus status;
+    private Integer score;
+    private Date createDate;
+
+    private Messenger messenger;
+    private ArrayList<User> users;
+    private ArrayList<Commit> commits;
+
     public Task(Integer id, String title, String description) {
         this.id = id;
         this.title = title;
@@ -21,10 +29,6 @@ public class Task {
         createDate = Calendar.getInstance().getTime();
         score = 1;
     }
-
-    private TaskStatus status;
-    private Integer score;
-    private Date createDate;
 
     public Integer getId() {
         return id;
@@ -74,9 +78,8 @@ public class Task {
         this.score = score;
     }
 
-    private Messenger messenger;
-    private ArrayList<User> users;
-    private ArrayList<Commit> commits;
+    //////////////////
+    public void addUser(User user) {
 
-
+    }
 }
