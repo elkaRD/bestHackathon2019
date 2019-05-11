@@ -1,11 +1,11 @@
 package com.nieelitarni.besthackathon2019;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Message {
     private User author;
     private String content;
-    private LocalDateTime time;
+    private Date time;
 
     public User getAuthor() {
         return author;
@@ -23,11 +23,11 @@ public class Message {
         this.content = content;
     }
 
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 }

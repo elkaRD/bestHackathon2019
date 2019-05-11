@@ -1,11 +1,12 @@
 package com.nieelitarni.besthackathon2019;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Commit {
     private String hash;
     private String author;
-    private LocalDateTime time;
+    private Date time;
     private String content;
     private Task task;
 
@@ -25,11 +26,11 @@ public class Commit {
         this.author = author;
     }
 
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

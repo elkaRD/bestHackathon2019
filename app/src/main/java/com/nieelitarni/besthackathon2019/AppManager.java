@@ -21,4 +21,11 @@ public class AppManager {
     public ArrayList<Commit> getCommits() {
         return commits;
     }
+
+    public void execute(){
+
+    }
+    public void addTask(Integer id, String title, String description){
+        Task task = new Task(id, title, description);
+    }
 }

@@ -1,13 +1,30 @@
 package com.nieelitarni.besthackathon2019;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Task {
     private Integer id;
     private String title;
     private String description;
+
+    public Task(Integer id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        status = TaskStatus.Created;
+        createDate = Calendar.getInstance().getTime();
+        score = 1;
+    }
+
     private TaskStatus status;
+    private Integer score;
+    private Date createDate;
 
     public Integer getId() {
         return id;
@@ -41,11 +58,11 @@ public class Task {
         this.status = status;
     }
 
-    public LocalDateTime getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -58,10 +75,8 @@ public class Task {
     }
 
     private Messenger messenger;
-    private LocalDateTime createDate;
     private ArrayList<User> users;
     private ArrayList<Commit> commits;
-    private Integer score;
 
 
 }
