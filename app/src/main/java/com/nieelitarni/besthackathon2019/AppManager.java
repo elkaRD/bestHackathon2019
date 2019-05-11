@@ -7,6 +7,9 @@ public class AppManager {
     private ArrayList<User> users;
     private ArrayList<Commit> commits;
 
+    private String repoOwner;
+    private String repoName;
+
     public ArrayList<Task> getTasks() {
         return tasks;
     }
