@@ -16,26 +16,28 @@ android:layout_height="match_parent">
             android:gravity="center_vertical|left|start"
             android:text="Task's name" />
 
-        <ImageView
-            android:id="@+id/imageViewAssignedUsers"
+        <ImageButton
+            android:id="@+id/imageButtonAssignedUsers"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_users" />
 
         <TextView
             android:id="@+id/textViewAssignedUsers"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:gravity="center_vertical|left|start"
             android:text="4" />
 
-        <ImageView
-            android:id="@+id/imageViewMessages"
+        <ImageButton
+            android:id="@+id/imageButtonMessages"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_message" />
 
         <TextView
@@ -43,16 +45,34 @@ android:layout_height="match_parent">
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical|left|start"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:text="5" />
+
+        <ImageButton
+            android:id="@+id/imageButtonCommits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_commit" />
+
+        <TextView
+            android:id="@+id/textViewCommits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left|start"
+            android:layout_weight="0.5"
+            android:text="10" />
 
         <ImageButton
             android:id="@+id/imageButtonAdd"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1.1"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_add" />
+
+
     </LinearLayout>
 
 </LinearLayout>

@@ -42,7 +42,7 @@ public class NavigationActivity extends AppCompatActivity {
         }
     };
 
-    public void replaceFragment(Fragment fragment)
+    private void replaceFragment(Fragment fragment)
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -62,7 +62,15 @@ public class NavigationActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         AppManager.getInstance().setContext(this);
+//        if (!AppManager.getInstance().setContext(this))
+//        {
+//            launchInitActivity();
+//        }
         AppManager.getInstance().execute();
     }
 
+    private void launchInitActivity()
+    {
+
+    }
 }
