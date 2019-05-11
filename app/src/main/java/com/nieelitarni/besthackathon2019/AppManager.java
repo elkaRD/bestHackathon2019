@@ -30,7 +30,7 @@ public class AppManager {
     }
 
     //singleton implementation start
-    private static AppManager instance = null;
+    private static transient AppManager instance = null;
 
     private AppManager() {
         tasks = new ArrayList<>();
@@ -83,6 +83,8 @@ public class AppManager {
         tasks = null;
         users = null;
         readFromFile();
+        System.out.println("Test");
+
         /*System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         try {
@@ -126,14 +128,15 @@ public class AppManager {
             e.printStackTrace();
 
         }*/
-        data = FileIO.read(context, "applicationData.json");
-        data = FileIO.read(context, "applicationData.json");
+        data = FileIO.read(context, "appData.json");
 
         Gson json = new Gson();
         AppManager tmp = json.fromJson(data, AppManager.class);
         this.users = tmp.users;
         this.tasks = tmp.tasks;
         this.commits = tmp.commits;
+        this.repoName = tmp.repoName;
+        this.repoOwner = tmp.repoOwner;
     }
 
     //Task methods
