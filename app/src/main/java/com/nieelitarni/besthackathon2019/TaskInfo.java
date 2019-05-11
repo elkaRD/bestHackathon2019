@@ -3,11 +3,11 @@ package com.nieelitarni.besthackathon2019;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class TasksMessages extends AppCompatActivity {
+public class TaskInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tasks_messages);
+        setContentView(R.layout.activity_task_info);
     }
 }

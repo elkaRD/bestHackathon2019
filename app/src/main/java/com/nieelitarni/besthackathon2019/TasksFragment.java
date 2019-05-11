@@ -23,6 +23,14 @@ public class TasksFragment extends Fragment implements View.OnClickListener
     private final static int BUTTON_MESSAGES = 1;
     private final static int BUTTON_COMMITS = 2;
     private final static int BUTTON_ADD = 3;
+    private final static int BUTTON_INFO = 4;
+
+    private final static int REQUEST_USERS = 0;
+    private final static int REQUEST_MESSAGES = 1;
+    private final static int REQUEST_COMMITS = 2;
+    private final static int REQUEST_INFO = 3;
+
+    public final static String INTENT_PARAM = "task";
 
     @Nullable
     @Override
@@ -50,8 +58,11 @@ public class TasksFragment extends Fragment implements View.OnClickListener
         {
             View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_task, null);
 
-            TextView name = child.findViewById(R.id.textViewName);
+            TextView name = child.findViewById(R.id.buttonName);
             name.setText(task.getTitle());
+            name.setTag(R.string.tag_task_fragment_type, BUTTON_INFO);
+            name.setTag(R.string.tag_task_fragment_add, task);
+            name.setOnClickListener(this);
 
             TextView users = child.findViewById(R.id.textViewAssignedUsers);
             users.setText(Integer.toString(task.getUsers().size()));
@@ -110,22 +121,37 @@ public class TasksFragment extends Fragment implements View.OnClickListener
         else if (buttonClicked == BUTTON_COMMITS) {
             clickedCommits(task);
         }
+        else if (buttonClicked == BUTTON_INFO) {
+            clickedInfo(task);
+        }
+    }
+
+    private void clickedInfo(Task task)
+    {
+        Intent myIntent = new Intent(getActivity(), TaskInfo.class);
+        myIntent.putExtra(INTENT_PARAM, task.getId());
+        startActivityForResult(myIntent, REQUEST_INFO);
     }
 
     private void clickedUsers(Task task)
     {
-//        Intent myIntent = new Intent(getActivity(), TaskSelection.class);
-//        startActivityForResult(myIntent, NEW_TASK_REQUEST);
+        Intent myIntent = new Intent(getActivity(), TaskUsers.class);
+        myIntent.putExtra(INTENT_PARAM, task.getId());
+        startActivityForResult(myIntent, REQUEST_USERS);
     }
 
     private void clickedMessages(Task task)
     {
-
+        Intent myIntent = new Intent(getActivity(), TaskMessages.class);
+        myIntent.putExtra(INTENT_PARAM, task.getId());
+        startActivityForResult(myIntent, REQUEST_MESSAGES);
     }
 
     private void clickedCommits(Task task)
     {
-
+        Intent myIntent = new Intent(getActivity(), TaskCommits.class);
+        myIntent.putExtra(INTENT_PARAM, task.getId());
+        startActivityForResult(myIntent, REQUEST_COMMITS);
     }
 
     private void clickedAdd(Task task)
