@@ -61,6 +61,7 @@ public class NavigationActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        AppManager.getInstance().setContext(this);
         AppManager.getInstance().execute();
     }
 

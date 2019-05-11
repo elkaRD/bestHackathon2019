@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class CommitsFragment extends Fragment
 {
     private View view;
+    private ArrayList<View> displayedCommits = new ArrayList<>();
 
     @Nullable
     @Override
@@ -26,9 +27,7 @@ public class CommitsFragment extends Fragment
         return view;
     }
 
-    private ArrayList<View> displayedCommits = new ArrayList<>();
-
-    private void fillCommitsList()
+    private void updateCommitsList()
     {
         for (View toRemove : displayedCommits)
             ((ViewGroup) toRemove.getParent()).removeView(toRemove);
