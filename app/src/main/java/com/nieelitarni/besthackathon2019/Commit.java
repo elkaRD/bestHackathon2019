@@ -4,11 +4,21 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Commit {
+
+    public Commit(String hash, String author, Date time, String content, Task task) {
+        this.hash = hash;
+        this.author = author;
+        this.time = time;
+        this.content = content;
+        this.task = task;
+    }
+
     private String hash;
     private String author;
     private Date time;
     private String content;
     private Task task;
+
 
     public String getHash() {
         return hash;

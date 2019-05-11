@@ -7,9 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,9 +20,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.TimeZone;
 
 public class AppManager {
     private transient Context context;
@@ -87,12 +95,23 @@ public class AppManager {
         return commits;
     }
 
+    private void setNewCommitsList(ArrayList<Commit> newCommitsList){
+        commits = newCommitsList;
+    }
+
+
     public void execute() {
         saveToFile();
         tasks = null;
         users = null;
         readFromFile();
         System.out.println("Test");
+
+        try {
+            sendRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -188,27 +207,65 @@ public class AppManager {
         }
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = "https://daftpython.herokuapp.com/counter";
+        String url ="https://api.github.com/repos/Quazan/test/commits";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        response = "{\"commits_list\":"+response+"}";
                         JSONObject js = null;
+                        JSONArray jsonArray = null;
                         try {
                             js = new JSONObject(response);
+                            jsonArray = js.getJSONArray("commits_list");
+
+                            ArrayList<Commit> newCommitsList = new ArrayList<>();
+
+                            for(int i = 0; i < jsonArray.length(); i++){
+                                String hash = null;
+                                Task task = null;
+                                String author = null;
+                                JSONObject jso = jsonArray.getJSONObject(i);
+                                hash = jso.getString("sha");
+                                jso = jso.getJSONObject("commit");
+                                String message = jso.getString("message");
+
+                                jso = jso.getJSONObject("committer");
+                                author = jso.getString("name");
+
+                                String dt = jso.getString("date");
+
+                                dt = dt.replace("T", " ");
+                                dt = dt.replace("Z"," GMT+00:00" );
+                                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+                                formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+                                Date time = formatter.parse(dt);
+
+                                String[] splited = message.split(" ");
+
+                                for(String str: splited){
+                                    if(str.startsWith("#T") || str.startsWith("#t")){
+                                        String s = str.substring(2);
+                                        task = getTaskById(Integer.parseInt(s));
+                                        Commit commit = new Commit(hash, author, time, message, task);
+                                        newCommitsList.add(commit);
+                                    }
+                                }
+                            }
+
+                            setNewCommitsList(newCommitsList);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                        System.out.println(js.toString());
-                        // Display the first 500 characters of the response string.
-                        //textView.setText("Response is: "+ response);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //textView.setText("That didn't work!");
+
             }
         });
 
