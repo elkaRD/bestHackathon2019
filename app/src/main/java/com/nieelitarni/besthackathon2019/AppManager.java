@@ -6,10 +6,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import android.content.Context;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AppManager {
+    private Context context;
+
+    public void setContext(Context context){
+        this.context = context;
+    }
     //singleton implementation start
     private AppManager() {
         tasks = new ArrayList<>();
@@ -60,7 +78,15 @@ public class AppManager {
     }
 
     public void execute() {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
+        try {
+            sendRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("cokolwiek", "cokolwiek");
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     public void saveToFile() {
@@ -153,5 +179,41 @@ public class AppManager {
                 return u;
         }
         return null;
+    }
+
+    private void sendRequest()
+    {
+        if(context == null){
+            System.out.println("context jest nullem");
+            return;
+        }
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url ="https://daftpython.herokuapp.com/counter";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject js = null;
+                        try {
+                            js = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(js.toString());
+                        // Display the first 500 characters of the response string.
+                        //textView.setText("Response is: "+ response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //textView.setText("That didn't work!");
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 }
