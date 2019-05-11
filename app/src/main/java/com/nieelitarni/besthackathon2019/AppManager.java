@@ -52,16 +52,16 @@ public class AppManager {
         repoName = "test";
 
 
-        tasks.add(new Task(tasks.size(), "Task1", "do zrobienia"));
-        tasks.add(new Task(tasks.size(), "Task2", "do zrobienia duuuuuuuzo"));
+        tasks.add(new Task("0", "Task1", "do zrobienia"));
+        tasks.add(new Task("1", "Task2", "do zrobienia duuuuuuuzo"));
         me = new User(users.size(), "localUser", Role.Backend);
         users.add(me);
         users.add(new User(users.size(), "paolo21d", Role.Backend));
         users.add(new User(users.size(), "robert", Role.Fronted));
         users.add(new User(users.size(), "Quazan", Role.Tester));
-        getTaskById(0).addUser(getUserByName("paolo21d"));
-        getTaskById(1).addUser(getUserByName("paolo21d"));
-        getTaskById(1).addUser(getUserByName("Quazan"));
+        getTaskById("0").addUser(getUserByName("paolo21d"));
+        getTaskById("1").addUser(getUserByName("paolo21d"));
+        getTaskById("1").addUser(getUserByName("Quazan"));
 
         //saveToFile();
 
@@ -138,7 +138,7 @@ public class AppManager {
     }
 
     //Task methods
-    public boolean addTask(Integer id, String title, String description) {
+    public boolean addTask(String id, String title, String description) {
         for (Task t : tasks) {
             if (t.getTitle().equals(title))
                 return false;
@@ -148,7 +148,7 @@ public class AppManager {
         return true;
     }
 
-    public Task getTaskById(Integer id) {
+    public Task getTaskById(String id) {
         for (Task t : tasks) {
             if (t.getId().equals(id))
                 return t;
@@ -199,6 +199,7 @@ public class AppManager {
         me = new User(users.size(), name, role);
         users.add(me);
     }
+
     //GitHub methods
     private void sendRequest() {
         if (context == null) {
@@ -248,7 +249,7 @@ public class AppManager {
                                 for(String str: splited){
                                     if(str.startsWith("#T") || str.startsWith("#t")){
                                         String s = str.substring(2);
-                                        task = getTaskById(Integer.parseInt(s));
+                                        task = getTaskById(s);
                                         Commit commit = new Commit(hash, author, time, message, task);
                                         newCommitsList.add(commit);
                                     }
@@ -265,7 +266,6 @@ public class AppManager {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
 

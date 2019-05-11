@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Task {
-    private Integer id;
+    private String id;
     private String title;
     private String description;
 
@@ -21,7 +21,7 @@ public class Task {
     private ArrayList<User> users;
     private ArrayList<Commit> commits;
 
-    public Task(Integer id, String title, String description) {
+    public Task(String id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,11 +33,11 @@ public class Task {
         commits = new ArrayList<>();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
