@@ -239,7 +239,7 @@ public class AppManager {
 
 
     //GitHub methods
-    private void sendRequest() {
+    public void sendRequest() {
         if (context == null) {
             System.out.println("context jest nullem");
             return;
@@ -295,6 +295,7 @@ public class AppManager {
                             }
 
                             setNewCommitsList(newCommitsList);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (ParseException e) {

@@ -19,7 +19,7 @@ public class Task {
 
     private Messenger messenger;
     private ArrayList<User> users;
-    private ArrayList<Commit> commits;
+    //private ArrayList<Commit> commits;
 
     public Task(String id, String title, String description) {
         this.id = id;
@@ -30,7 +30,7 @@ public class Task {
         score = 1;
         messenger = new Messenger();
         users = new ArrayList<>();
-        commits = new ArrayList<>();
+        //commits = new ArrayList<>();
     }
 
     public Task(Task t) {
@@ -42,7 +42,7 @@ public class Task {
         this.score = t.score;
         this.messenger = t.messenger;
         this.users = t.users;
-        this.commits = t.commits;
+        //this.commits = t.commits;
     }
 
     public String getId() {
@@ -93,9 +93,9 @@ public class Task {
         this.score = score;
     }
 
-    public ArrayList<Commit> getCommits() {
+    /*public ArrayList<Commit> getCommits() {
         return commits;
-    }
+    }*/
 
     public ArrayList<User> getUsers() {
         return users;
@@ -113,5 +113,13 @@ public class Task {
     public void addMessage(String msg) {
         messenger.addMessage(msg);
     }
+
+    /*public void resetCommitList(){
+        commits = new ArrayList<>();
+    }
+
+    public void addCommit(Commit commit){
+        commits.add(commit);
+    }*/
 
 }

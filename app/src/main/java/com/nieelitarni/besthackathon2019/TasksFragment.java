@@ -85,7 +85,13 @@ public class TasksFragment extends Fragment implements View.OnClickListener, IRe
             messages.setText(Integer.toString(task.getMessages().size()));
 
             TextView commits = child.findViewById(R.id.textViewCommits);
-            commits.setText(Integer.toString(task.getCommits().size()));
+            Integer count = 0;
+            for(Commit commit: AppManager.getInstance().getCommits()){
+                if(commit.getTask().getId().equals(task.getId())){
+                    count += 1;
+                }
+            }
+            commits.setText(count.toString());
 
             ImageButton assigned = child.findViewById(R.id.imageButtonAssignedUsers);
             assigned.setTag(R.string.tag_task_fragment_type, BUTTON_USERS);

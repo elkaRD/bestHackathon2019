@@ -38,7 +38,7 @@ public class CommitsFragment extends Fragment implements IRefreshable
         displayedCommits.clear();
 
         ViewGroup commitsViewGroup = (ViewGroup) view.findViewById(R.id.commitsLayout);
-
+        AppManager.getInstance().sendRequest();
         ArrayList<Commit> commits = AppManager.getInstance().getCommits();
 
         for (Commit commit : commits)

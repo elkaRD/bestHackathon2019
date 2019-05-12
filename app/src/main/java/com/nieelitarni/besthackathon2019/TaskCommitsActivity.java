@@ -38,7 +38,7 @@ public class TaskCommitsActivity extends AppCompatActivity implements IRefreshab
 
         ViewGroup itemsViewGroup = (ViewGroup) findViewById(R.id.itemsLayout);
 
-        ArrayList<Commit> commits = task.getCommits();
+        ArrayList<Commit> commits = AppManager.getInstance().getCommits();
 
         for (Commit commit : commits)
         {
