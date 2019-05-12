@@ -29,17 +29,6 @@ public class MessagesActivity extends AppCompatActivity implements IRefreshable
 
         NavigationActivity.toResfresh = this;
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-////                        .setAction("Action", null).show();
-//
-//
-//            }
-//        });
-
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);

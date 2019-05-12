@@ -45,7 +45,7 @@ public class Message {
             header = "Me";
         else
             header = author.getName();
-        header += DateHandler.getTimeAgo(time);
+        header += ": " + DateHandler.getTimeAgo(time);
         return header;
     }
 }

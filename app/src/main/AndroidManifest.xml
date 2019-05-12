@@ -23,13 +23,8 @@
             android:name=".MessagesActivity"
             android:label="@string/title_activity_messages"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Debug_RemoveMe"
-            android:label="@string/title_activity_debug__remove_me"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TaskInfoActivity" />
         <activity android:name=".TaskCommitsActivity" />
-        <activity android:name=".TaskMessagesActivity" />
         <activity android:name=".TaskUsersActivity" />
         <activity
             android:name=".NavigationActivity"
