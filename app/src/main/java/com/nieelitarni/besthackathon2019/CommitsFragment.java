@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CommitsFragment extends Fragment
+public class CommitsFragment extends Fragment implements IRefreshable
 {
     private View view;
     private ArrayList<View> displayedCommits = new ArrayList<>();
@@ -24,6 +24,7 @@ public class CommitsFragment extends Fragment
 
         view = inflater.inflate(R.layout.fragment_commits, container, false);
 
+        NavigationActivity.toResfresh = this;
         updateCommitsList();
 
         return view;
@@ -64,5 +65,10 @@ public class CommitsFragment extends Fragment
             anim.setFillAfter(true);
             child.startAnimation(anim);
         }
+    }
+
+    public void refreshScreen()
+    {
+        updateCommitsList();
     }
 }

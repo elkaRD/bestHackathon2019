@@ -1,5 +1,6 @@
 package com.nieelitarni.besthackathon2019;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,13 +18,15 @@ public class NavigationActivity extends AppCompatActivity {
     private static NavigationActivity currentInstance = null;
     private final static int REQUEST_INIT = 0;
 
+    public static IRefreshable toResfresh = null;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment fragment = null;
+            Fragment fragment = new ProgressFragment();
 
             switch (item.getItemId()) {
                 case R.id.navigation_progress:
@@ -89,6 +92,14 @@ public class NavigationActivity extends AppCompatActivity {
     }
 
     public void dataChanged() {
+        refreshCurrentScreen();
+    }
 
+    public void refreshCurrentScreen()
+    {
+        if (toResfresh != null)
+        {
+            toResfresh.refreshScreen();
+        }
     }
 }

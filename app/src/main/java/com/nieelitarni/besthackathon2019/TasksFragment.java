@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TasksFragment extends Fragment implements View.OnClickListener
+public class TasksFragment extends Fragment implements View.OnClickListener, IRefreshable
 {
     private View view;
     private ArrayList<View> displayedTasks = new ArrayList<>();
@@ -49,6 +49,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener
                 startActivityForResult(myIntent, REQUEST_NEW_TASK);
             }
         });
+
+        NavigationActivity.toResfresh = this;
 
         updateCommitsList();
 
@@ -172,5 +174,11 @@ public class TasksFragment extends Fragment implements View.OnClickListener
         updateCommitsList();
         Snackbar.make(view, "Assigned to task", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show();
+    }
+
+    @Override
+    public void refreshScreen()
+    {
+        updateCommitsList();
     }
 }

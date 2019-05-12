@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class TaskInfoActivity extends AppCompatActivity {
+public class TaskInfoActivity extends AppCompatActivity implements IRefreshable
+{
 
     private Task task;
 
@@ -13,6 +14,8 @@ public class TaskInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_info);
+
+        NavigationActivity.toResfresh = this;
 
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
@@ -38,5 +41,11 @@ public class TaskInfoActivity extends AppCompatActivity {
     {
         task.setStatus(TaskStatus.Completed);
         finish();
+    }
+
+    @Override
+    public void refreshScreen()
+    {
+        //TODO: refresh this screen by re-launching activity
     }
 }

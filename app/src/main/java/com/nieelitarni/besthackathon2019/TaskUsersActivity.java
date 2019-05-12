@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TaskUsersActivity extends AppCompatActivity {
+public class TaskUsersActivity extends AppCompatActivity implements IRefreshable
+{
     private Task task;
     private ArrayList<View> displayedItems = new ArrayList<>();
 
@@ -18,6 +19,8 @@ public class TaskUsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_users);
+
+        NavigationActivity.toResfresh = this;
 
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
@@ -52,5 +55,11 @@ public class TaskUsersActivity extends AppCompatActivity {
             anim.setFillAfter(true);
             child.startAnimation(anim);
         }
+    }
+
+    @Override
+    public void refreshScreen()
+    {
+        updateItemsList();
     }
 }

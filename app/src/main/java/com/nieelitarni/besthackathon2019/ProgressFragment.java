@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ProgressFragment extends Fragment
+public class ProgressFragment extends Fragment implements IRefreshable
 {
     private View view;
 
@@ -17,6 +17,14 @@ public class ProgressFragment extends Fragment
 
         view = inflater.inflate(R.layout.fragment_progress, container, false);
 
+        NavigationActivity.toResfresh = this;
+
         return view;
+    }
+
+    @Override
+    public void refreshScreen()
+    {
+        //TODO: refresh this screen by re-launching activity
     }
 }
