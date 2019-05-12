@@ -148,6 +148,11 @@ public class AppManager {
         return repoName;
     }
 
+    public String getRepoOwner()
+    {
+        return repoOwner;
+    }
+
     public ArrayList<User> getUsers() {
         return users;
     }

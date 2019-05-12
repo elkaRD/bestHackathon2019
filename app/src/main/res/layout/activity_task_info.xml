@@ -27,6 +27,10 @@
             android:textSize="28sp"
             android:text="Id: nr" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
         <TextView
             android:id="@+id/textViewDate"
             android:layout_width="match_parent"
@@ -43,6 +47,10 @@
             android:textSize="20sp"
             android:text="Users: nr" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
         <TextView
             android:id="@+id/textViewDetails"
             android:layout_width="match_parent"
@@ -51,6 +59,10 @@
             android:singleLine="false"
             android:textSize="20sp"
             android:text="Details about task" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <Button
             android:id="@+id/buttonMarkAsDone"

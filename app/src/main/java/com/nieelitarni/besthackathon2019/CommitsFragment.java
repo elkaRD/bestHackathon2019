@@ -39,7 +39,7 @@ public class CommitsFragment extends Fragment implements IRefreshable
         displayedCommits.clear();
 
         ViewGroup commitsViewGroup = (ViewGroup) view.findViewById(R.id.commitsLayout);
-        AppManager.getInstance().sendRequest();
+        //AppManager.getInstance().sendRequest();
         ArrayList<Commit> commits = AppManager.getInstance().getCommits();
 
         String color = "#eeeeee";
