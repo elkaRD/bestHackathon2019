@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".NewTaskActivity"
+            android:label="@string/title_activity_new_task"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".InitUserActivity"
             android:label="@string/title_activity_init_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MessagesActivity"
             android:label="@string/title_activity_messages"

@@ -1,5 +1,6 @@
 package com.nieelitarni.besthackathon2019;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,6 +15,7 @@ public class NavigationActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private static NavigationActivity currentInstance = null;
+    private final static int REQUEST_INIT = 0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,19 +64,22 @@ public class NavigationActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        AppManager.getInstance().setContext(this);
-//        if (!AppManager.getInstance().setContext(this))
-//        {
-//            launchInitActivity();
-//        }
+        //AppManager.getInstance().setContext(this);
+        //launchInitActivity();
+        if (!AppManager.getInstance().setContext(this))
+        {
+            launchInitActivity();
+        }
         AppManager.getInstance().execute();
 
 //        Firebase.write("my_debug_key", "my_debug_msg");
 //        Firebase.read("my_debug_key");
     }
 
-    private void launchInitActivity() {
-
+    private void launchInitActivity()
+    {
+        Intent myIntent = new Intent(this, InitUserActivity.class);
+        startActivityForResult(myIntent, REQUEST_INIT);
     }
 
     public static NavigationActivity getCurrentInstance() {

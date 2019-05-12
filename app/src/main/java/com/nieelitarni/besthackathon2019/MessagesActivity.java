@@ -28,14 +28,18 @@ public class MessagesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+
             }
         });
 
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);
+
+        updateItemsList();
     }
 
     private void updateItemsList()
@@ -45,22 +49,25 @@ public class MessagesActivity extends AppCompatActivity {
 
         displayedItems.clear();
 
-        ViewGroup tasksViewGroup = (ViewGroup) findViewById(R.id.itemsLayout);
+        ViewGroup itemsViewGroup = (ViewGroup) findViewById(R.id.itemsLayout);
 
-        ArrayList<User> users = task.getUsers();
+        ArrayList<Message> messages = task.getMessages();
 
-        for (User user : users)
+        for (Message message : messages)
         {
             View child = null;
-            if (AppManager.getInstance().isMe(user))
+            if (AppManager.getInstance().isMe(message.getAuthor()))
                 child = LayoutInflater.from(this).inflate(R.layout.item_task_message_my, null);
             else
                 child = LayoutInflater.from(this).inflate(R.layout.item_task_message, null);
 
-            TextView name = child.findViewById(R.id.textViewUserName);
-            name.setText(user.getName());
+            TextView msg = child.findViewById(R.id.textViewMsg);
+            msg.setText(message.getContent());
 
-            tasksViewGroup.addView(child);
+            TextView header = child.findViewById(R.id.textViewHeader);
+            header.setText(message.getHeader());
+
+            itemsViewGroup.addView(child);
             displayedItems.add(child);
 
             ScaleAnimation anim = new ScaleAnimation(0,1,0,1);
