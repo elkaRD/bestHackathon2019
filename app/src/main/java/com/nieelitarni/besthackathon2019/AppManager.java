@@ -38,7 +38,7 @@ public class AppManager {
 
     public boolean setContext(Context context) {
         this.context = context;
-        if (!FileIO.doesExist(context, "myUser.bin")) { //pierwsze uruchomienie
+        if (!FileIO.doesExist(context, "myUser.txt")) { //pierwsze uruchomienie
             return false;
         }
         return true;
@@ -226,6 +226,7 @@ public class AppManager {
         users.add(me);
         Collections.sort(users, new SortUsers());
         sendToDatabase();
+        FileIO.save(context, "myUser.txt", name);
     }
 
     public User getMe() {
