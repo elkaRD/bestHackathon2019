@@ -1,6 +1,7 @@
 package com.nieelitarni.besthackathon2019;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class TasksFragment extends Fragment implements View.OnClickListener
     private final static int REQUEST_MESSAGES = 1;
     private final static int REQUEST_COMMITS = 2;
     private final static int REQUEST_INFO = 3;
+    private final static int REQUEST_NEW_TASK = 3;
 
     public final static String INTENT_PARAM = "task";
 
@@ -37,6 +40,15 @@ public class TasksFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
+
+        Button newTask = view.findViewById(R.id.buttonAdd);
+        newTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getActivity(), NewTaskActivity.class);
+                startActivityForResult(myIntent, REQUEST_NEW_TASK);
+            }
+        });
 
         updateCommitsList();
 

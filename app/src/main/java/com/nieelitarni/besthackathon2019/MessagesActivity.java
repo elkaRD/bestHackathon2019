@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MessagesActivity extends AppCompatActivity {
     private Task task;
     private ArrayList<View> displayedItems = new ArrayList<>();
+    private EditText inputMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +26,22 @@ public class MessagesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
-
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//
+//
+//            }
+//        });
 
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);
+
+        inputMsg = findViewById(R.id.editTextMsg);
 
         updateItemsList();
     }
@@ -77,4 +81,13 @@ public class MessagesActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickSend(View view)
+    {
+        String typedMsg = inputMsg.getText().toString();
+
+        if (typedMsg == null || typedMsg.equals("")) return;
+
+        AppManager.getInstance().addMessageToTask(task, typedMsg);
+        inputMsg.setText("");
+    }
 }
