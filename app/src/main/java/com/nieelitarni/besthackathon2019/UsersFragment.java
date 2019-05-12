@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UsersFragment extends Fragment implements IRefreshable
 {
@@ -45,6 +47,10 @@ public class UsersFragment extends Fragment implements IRefreshable
 
             TextView name = child.findViewById(R.id.textViewUserName);
             name.setText(user.getName());
+
+            Random r = new Random();
+            ProgressBar level = child.findViewById(R.id.progressBar);
+            level.setProgress(r.nextInt(100), true);
 
             TextView done = child.findViewById(R.id.textViewUserDone);
             done.setText(Integer.toString(user.getDoneTasks().size()));

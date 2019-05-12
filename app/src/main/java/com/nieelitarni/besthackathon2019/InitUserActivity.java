@@ -17,6 +17,8 @@ public class InitUserActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle("Set up your account");
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +37,7 @@ public class InitUserActivity extends AppCompatActivity {
     {
         EditText email = findViewById(R.id.editTextEmail);
         AppManager.getInstance().addMeUser(email.getText().toString(), Role.Backend);
+        AppManager.getInstance().execute();
         finish();
     }
 }

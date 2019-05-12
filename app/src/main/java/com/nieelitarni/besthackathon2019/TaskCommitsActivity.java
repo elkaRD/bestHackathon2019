@@ -1,5 +1,6 @@
 package com.nieelitarni.besthackathon2019;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +27,8 @@ public class TaskCommitsActivity extends AppCompatActivity implements IRefreshab
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);
 
+        setTitle("Commits for " + task.getTitle());
+
         updateItemsList();
     }
 
@@ -40,21 +43,29 @@ public class TaskCommitsActivity extends AppCompatActivity implements IRefreshab
 
         ArrayList<Commit> commits = AppManager.getInstance().getCommits();
 
+        String color = "#eeeeee";
+
         for (Commit commit : commits)
         {
+            if (!commit.getTask().getId().equals(task.getId())) continue;
+
             View child = LayoutInflater.from(this).inflate(R.layout.item_task_commit, null);
 
             TextView name = child.findViewById(R.id.textViewDetails);
             name.setText(commit.getContent());
+            name.setBackgroundColor(Color.parseColor(color));
 
             TextView hash = child.findViewById(R.id.textViewHash);
             hash.setText(commit.getHash());
+            hash.setBackgroundColor(Color.parseColor(color));
 
             TextView timeAgo = child.findViewById(R.id.textViewDate);
             timeAgo.setText(DateHandler.getTimeAgo(commit.getTime()));
+            timeAgo.setBackgroundColor(Color.parseColor(color));
 
             TextView author = child.findViewById(R.id.textViewAuthor);
             author.setText(commit.getAuthor());
+            author.setBackgroundColor(Color.parseColor(color));
 
             itemsViewGroup.addView(child);
             displayedItems.add(child);

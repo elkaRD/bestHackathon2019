@@ -70,6 +70,8 @@ public class TasksFragment extends Fragment implements View.OnClickListener, IRe
 
         for (Task task : tasks)
         {
+            if (task.getStatus() == TaskStatus.Completed) continue;
+
             View child = LayoutInflater.from(getActivity()).inflate(R.layout.item_task, null);
 
             TextView name = child.findViewById(R.id.buttonName);

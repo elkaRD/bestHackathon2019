@@ -32,12 +32,35 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.TimeZone;
+import java.util.UUID;
 
 public class AppManager {
     private transient Context context;
 
+    private String meUUID;
+    private final static String FILE_UUID = "uuidFile2";
+    private final static String TAG = "DEBUGGING";
+
+    private String getUUID()
+    {
+//        if (!FileIO.doesExist(context, FILE_UUID))
+//        {
+//            Log.d(TAG, "First launch - need to create UUID");
+//
+//            String uuid = UUID.randomUUID().toString();
+//            FileIO.save(context, FILE_UUID, uuid);
+//            return uuid;
+//        }
+//        Log.d(TAG, "UUID exists");
+//        return FileIO.read(context, FILE_UUID);
+
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
+    }
+
     public boolean setContext(Context context) {
         this.context = context;
+        meUUID = getUUID();
         if (!FileIO.doesExist(context, "myUser.txt")) { //pierwsze uruchomienie
             return false;
         }
@@ -56,16 +79,16 @@ public class AppManager {
         repoName = "test";
 
 
-        tasks.add(new Task("0", "Task1", "do zrobienia"));
-        tasks.add(new Task("1", "Task2", "do zrobienia duuuuuuuzo"));
-        me = new User(users.size(), "localUser", Role.Backend);
-        users.add(me);
-        users.add(new User(users.size(), "paolo21d", Role.Backend));
-        users.add(new User(users.size(), "robert", Role.Fronted));
-        users.add(new User(users.size(), "Quazan", Role.Tester));
-        getTaskById("0").addUser(getUserByName("paolo21d"));
-        getTaskById("1").addUser(getUserByName("paolo21d"));
-        getTaskById("1").addUser(getUserByName("Quazan"));
+//        tasks.add(new Task("0", "Task1", "do zrobienia"));
+//        tasks.add(new Task("1", "Task2", "do zrobienia duuuuuuuzo"));
+//        //me = new User(users.size(), "localUser", Role.Backend);
+//        //users.add(me);
+//        users.add(new User(UUID.randomUUID().toString(), "paolo21d", Role.Backend));
+//        users.add(new User(UUID.randomUUID().toString(), "robert", Role.Fronted));
+//        users.add(new User(UUID.randomUUID().toString(), "Quazan", Role.Tester));
+//        getTaskById("0").addUser(getUserByName("paolo21d"));
+//        getTaskById("1").addUser(getUserByName("paolo21d"));
+//        getTaskById("1").addUser(getUserByName("Quazan"));
 
         //saveToFile();
         //Firebase.read(repoName);
@@ -89,9 +112,9 @@ public class AppManager {
 
     public void execute() {
         saveToFile();
-        tasks = null;
-        users = null;
-        readFromFile();
+        tasks = new ArrayList<>();
+        users = new ArrayList<>();
+        //readFromFile();
         System.out.println("Test");
 
         try {
@@ -100,9 +123,21 @@ public class AppManager {
             e.printStackTrace();
         }
 
-        addMessageToTask(getTaskById("0"), "mes1");
-        addMessageToTask(getTaskById("0"), "mes2");
-        addMessageToTask(getTaskById("0"), "mes3");
+        tasks.add(new Task("0", "Fix bugs", "Try to fix some bugs releted with the logic"));
+        tasks.add(new Task("1", "Improve UI", "Implement views and layouts for new features"));
+        tasks.add(new Task("2", "Debug connecting", "Debug connection with server"));
+        //me = new User(users.size(), "localUser", Role.Backend);
+        //users.add(me);
+        users.add(new User("0", "paolo21d", Role.Backend));
+        users.add(new User("1", "robert", Role.Fronted));
+        users.add(new User("2", "Quazan", Role.Tester));
+        getTaskById("0").addUser(getUserByName("paolo21d"));
+        getTaskById("1").addUser(getUserByName("paolo21d"));
+        getTaskById("1").addUser(getUserByName("Quazan"));
+
+        addMessageToTask(getTaskById("1"), "Contacted UX team");
+        addMessageToTask(getTaskById("1"), "Got response. They would like to display more modern-looking menus");
+        //addMessageToTask(getTaskById("1"), "OK. Got it. I'm going to work!");
     }
 
     public ArrayList<Task> getTasks() {
@@ -193,17 +228,17 @@ public class AppManager {
     }
 
     //User methods
-    public boolean addUser(String name, Role role) {
-        for (User u : users) {
-            if (u.getName().equals(name))
-                return false;
-        }
-        User user = new User(users.size(), name, role);
-        users.add(user);
-        Collections.sort(users, new SortUsers());
-        sendToDatabase();
-        return true;
-    }
+//    public boolean addUser(String name, Role role) {
+//        for (User u : users) {
+//            if (u.getName().equals(name))
+//                return false;
+//        }
+//        User user = new User(users.size(), name, role);
+//        users.add(user);
+//        Collections.sort(users, new SortUsers());
+//        sendToDatabase();
+//        return true;
+//    }
 
     public User getUserById(Integer id) {
         for (User u : users) {
@@ -222,7 +257,7 @@ public class AppManager {
     }
 
     public void addMeUser(String name, Role role) {
-        me = new User(users.size(), name, role);
+        me = new User(meUUID, name, role);
         users.add(me);
         Collections.sort(users, new SortUsers());
         sendToDatabase();
@@ -234,7 +269,7 @@ public class AppManager {
     }
 
     public boolean isMe(User u){
-        return u.equals(me);
+        return u.getId().equals(meUUID);
     }
 
 
@@ -321,24 +356,36 @@ public class AppManager {
         this.repoName = tmp.repoName;
         this.repoOwner = tmp.repoOwner;*/
 
-        if (!this.users.equals(tmp.users)) { //rozna lista uzytkownikow
-            /*if(this.users.size()<tmp.users.size()){ //w bazie wiecej uzytkownikow
-                for(Integer i=this.users.size(); i<tmp.users.size(); ++i){
-                    users.add(tmp.users.get(i));
-                }
-            }*/
-            users = tmp.users;
-            NavigationActivity.getCurrentInstance().dataChanged();
+        if (tmp == null)
+        {
+            Log.d(TAG, "TEMP IS NULL");
         }
-        if (!this.tasks.equals(tmp.tasks)) { //rozna lista taskow
-            /*if(this.tasks.size()<tmp.users.size()){
-                for(Integer i=this.tasks.size(); i<tmp.tasks.size(); ++i){
-                    tasks.add(tmp.tasks.get(i));
-                }
-            }*/
-            tasks = tmp.tasks;
-            NavigationActivity.getCurrentInstance().dataChanged();
-        }
+
+//        if (!this.users.equals(tmp.users)) { //rozna lista uzytkownikow
+//            /*if(this.users.size()<tmp.users.size()){ //w bazie wiecej uzytkownikow
+//                for(Integer i=this.users.size(); i<tmp.users.size(); ++i){
+//                    users.add(tmp.users.get(i));
+//                }
+//            }*/
+//            users = tmp.users;
+//            NavigationActivity.getCurrentInstance().dataChanged();
+//        }
+//        if (!this.tasks.equals(tmp.tasks)) { //rozna lista taskow
+//            /*if(this.tasks.size()<tmp.users.size()){
+//                for(Integer i=this.tasks.size(); i<tmp.tasks.size(); ++i){
+//                    tasks.add(tmp.tasks.get(i));
+//                }
+//            }*/
+//            tasks = tmp.tasks;
+//            NavigationActivity.getCurrentInstance().dataChanged();
+//        }
+
+        this.users = tmp.users;
+        this.tasks = tmp.tasks;
+        this.commits = tmp.commits;
+        this.repoName = tmp.repoName;
+        this.repoOwner = tmp.repoOwner;
+        NavigationActivity.getCurrentInstance().dataChanged();
     }
 
     //Message
@@ -348,6 +395,14 @@ public class AppManager {
 
     public void addMessageToTask(Task t, String msg) {
         t.addMessage(msg);
+    }
+
+    public void markTaskAsDone(Task task)
+    {
+        task.setStatus(TaskStatus.Completed);
+        me.getDoneTasks().add(task);
+        me.setScore(me.getScore() + 1);
+        sendToDatabase();
     }
 
 }

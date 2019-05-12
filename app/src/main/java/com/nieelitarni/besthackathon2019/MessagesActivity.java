@@ -27,6 +27,8 @@ public class MessagesActivity extends AppCompatActivity implements IRefreshable
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         NavigationActivity.toResfresh = this;
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
@@ -43,6 +45,8 @@ public class MessagesActivity extends AppCompatActivity implements IRefreshable
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);
+
+        setTitle("Comments for " + task.getTitle());
 
         inputMsg = findViewById(R.id.editTextMsg);
 
@@ -63,10 +67,13 @@ public class MessagesActivity extends AppCompatActivity implements IRefreshable
         for (Message message : messages)
         {
             View child = null;
-            if (AppManager.getInstance().isMe(message.getAuthor()))
+            //if (AppManager.getInstance().isMe(message.getAuthor()))
+            if (message.getAuthor().equals(AppManager.getInstance().getMe()))
                 child = LayoutInflater.from(this).inflate(R.layout.item_task_message_my, null);
-            else
+            else {
+                task.setTitle("Quazan");
                 child = LayoutInflater.from(this).inflate(R.layout.item_task_message, null);
+            }
 
             TextView msg = child.findViewById(R.id.textViewMsg);
             msg.setText(message.getContent());

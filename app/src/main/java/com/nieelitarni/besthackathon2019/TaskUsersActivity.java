@@ -22,9 +22,12 @@ public class TaskUsersActivity extends AppCompatActivity implements IRefreshable
 
         NavigationActivity.toResfresh = this;
 
+
         Bundle extras = getIntent().getExtras();
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);
+
+        setTitle("Assigned users to " + task.getTitle());
 
         updateItemsList();
     }

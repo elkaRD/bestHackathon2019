@@ -67,14 +67,15 @@ public class NavigationActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //AppManager.getInstance().setContext(this);
-        //launchInitActivity();
-        if (!AppManager.getInstance().setContext(this))
-        {
-            launchInitActivity();
-        }
-        else
-            AppManager.getInstance().execute();
+        AppManager.getInstance().setContext(this);
+        launchInitActivity();
+//        AppManager.getInstance().execute();
+//        if (!AppManager.getInstance().setContext(this))
+//        {
+//            launchInitActivity();
+//        }
+//        else
+//            AppManager.getInstance().execute();
 
 //        Firebase.write("my_debug_key", "my_debug_msg");
 //        Firebase.read("my_debug_key");

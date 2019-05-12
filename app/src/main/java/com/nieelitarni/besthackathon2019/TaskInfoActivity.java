@@ -21,6 +21,8 @@ public class TaskInfoActivity extends AppCompatActivity implements IRefreshable
         String taskId = extras.getString(TasksFragment.INTENT_PARAM);
         task = AppManager.getInstance().getTaskById(taskId);
 
+        setTitle("Details about " + task.getTitle());
+
         TextView title = findViewById(R.id.textViewTitle);
         title.setText(task.getTitle());
 
@@ -39,7 +41,8 @@ public class TaskInfoActivity extends AppCompatActivity implements IRefreshable
 
     public void onClickMarkAsDone(View view)
     {
-        task.setStatus(TaskStatus.Completed);
+//        task.setStatus(TaskStatus.Completed);
+        AppManager.getInstance().markTaskAsDone(task);
         finish();
     }
 
