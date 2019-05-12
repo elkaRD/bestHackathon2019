@@ -18,19 +18,6 @@ public class InitUserActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle("Set up your account");
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
-                EditText email = findViewById(R.id.editTextEmail);
-                AppManager.getInstance().addMeUser(email.getText().toString(), Role.Backend);
-                finish();
-            }
-        });
     }
 
     public void onClickSave(View view)

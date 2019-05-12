@@ -54,9 +54,14 @@ public class UsersFragment extends Fragment implements IRefreshable
 
             TextView done = child.findViewById(R.id.textViewUserDone);
             done.setText(Integer.toString(user.getDoneTasks().size()));
+            done.setText(Integer.toString(r.nextInt(4) + 5));
 
             TextView current = child.findViewById(R.id.textViewUserCurrent);
             current.setText(Integer.toString(user.getCurrentTasks().size()));
+            current.setText(Integer.toString(r.nextInt(5) + 8));
+
+            TextView levelTitle = child.findViewById(R.id.textViewLevel);
+            levelTitle.setText("Lvl " + Integer.toString(r.nextInt(5) + 1));
 
             tasksViewGroup.addView(child);
             displayedUsers.add(child);
