@@ -13,6 +13,7 @@ public final class Firebase {
 
     public static void write(String key, String value) {
         Log.d(TAG, "trying assign " + value + " for " + key);
+        key = "anotherKey";
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(key);
@@ -21,6 +22,8 @@ public final class Firebase {
     }
 
     public static String read(String key) {
+        key = "anotherKey";
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(key);
         myRef.addValueEventListener(new ValueEventListener() {

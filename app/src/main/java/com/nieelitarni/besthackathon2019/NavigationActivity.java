@@ -75,6 +75,7 @@ public class NavigationActivity extends AppCompatActivity {
 
 //        Firebase.write("my_debug_key", "my_debug_msg");
 //        Firebase.read("my_debug_key");
+        Firebase.read(AppManager.getInstance().getRepoName());
     }
 
     private void launchInitActivity()
