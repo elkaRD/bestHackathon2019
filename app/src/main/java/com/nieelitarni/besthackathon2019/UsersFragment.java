@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class UsersFragment extends Fragment
+public class UsersFragment extends Fragment implements IRefreshable
 {
     private View view;
     private ArrayList<View> displayedUsers = new ArrayList<>();
@@ -23,6 +23,7 @@ public class UsersFragment extends Fragment
         view = inflater.inflate(R.layout.fragment_users, container, false);
 
         updateCommitsList();
+        NavigationActivity.toResfresh = this;
 
         return view;
     }
@@ -59,5 +60,11 @@ public class UsersFragment extends Fragment
             anim.setFillAfter(true);
             child.startAnimation(anim);
         }
+    }
+
+    @Override
+    public void refreshScreen()
+    {
+        updateCommitsList();
     }
 }
