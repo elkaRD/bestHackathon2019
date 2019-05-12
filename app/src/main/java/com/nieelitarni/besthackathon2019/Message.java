@@ -1,5 +1,6 @@
 package com.nieelitarni.besthackathon2019;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Message {
@@ -10,6 +11,7 @@ public class Message {
     public Message(String c) {
         author = AppManager.getInstance().getMe();
         content = c;
+        time = Calendar.getInstance().getTime();
     }
 
     public User getAuthor() {
